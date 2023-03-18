@@ -8,9 +8,9 @@ export default function Navbar(props) {
     <nav className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}>
       <div className="container-fluid">
         {
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/">
             {props.title}
-          </a> /*aise prop ko titl me use kar diya*/
+          </a> /*aise prop ko title me use kar diya*/
         }
         <button
           className="navbar-toggler"
@@ -26,27 +26,16 @@ export default function Navbar(props) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
+              <a className="nav-link" aria-current="page" href="/">
                 Home
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/about">
-                {props.aboutText}
+                 {props.aboutText}    {/*title kya dalna hai iski jagah uska prop hai app.js me navbar me prop pass hoga*/}
               </a>
             </li>
           </ul>
-          {/* <form className="d-flex" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
-            </form> */}
              <div className={`form-check form-switch text-${props.mode ==='light' ? 'dark' : 'light'}`}>  
              {/* upar bhi hamne template literal use kiya aur ternary operator laga diya which is saying ki agar props.mode light to dark ho jaye nhi to light ho jaye */}
               <input

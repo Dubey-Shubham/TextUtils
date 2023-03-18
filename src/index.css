@@ -1,1 +1,4 @@
-
+.accordion.button::after{
+filter: invert(1);
+} 
+/* dark mode krne k baad mouse cursor white ho jayega */

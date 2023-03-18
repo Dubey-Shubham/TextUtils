@@ -6,14 +6,26 @@ export default function TextForm(props) {
     console.log("Uppercase was clicked"); //ye console me likh k a jayega, ye sirf pta karne k liye hai ki fun working or not
     let newText = text.toUpperCase(); //yahan text ko upper case me kar dia
     setText(newText); //jaise hi user button click karega state change ho jayegi aur uppercase converted text likh k a jayega
-    props.showAlert("Converted to upper case! ", "success");
+    props.showAlert("Converted to upper case! ", "success", "congrats");
   };
   const handleloClick = () => {
     // ye wo func hai jo button click hone par fire hua hai
     console.log("Uppercase was clicked"); //ye console me likh k a jayega, ye sirf pta karne k liye hai ki fun working or not
     let newText = text.toLowerCase(); //yahan text ko lower case me kar dia
     setText(newText); //jaise hi user button click karega state change ho jayegi aur uppercase converted text likh k a jayega
-    props.showAlert("Converted to lower case! ", "success");   //yahan bhi prop use kiya to change state
+    props.showAlert("Converted to lower case! ", "success", "congrats");   //yahan bhi prop use kiya to change state
+  };
+
+  const handleClear = () => {
+    console.log("Clear Text was clicked"); //ye console me likh k a jayega, ye sirf pta karne k liye hai ki fun working or not
+    let newText = '' //yahan text ko nothing kar denge case me kar dia
+    setText(newText); 
+    props.showAlert("Text Cleared! ", "success", "congrats");   //yahan bhi prop use kiya to change state
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text);
+    props.showAlert("Text Cleared! ", "success", "congrats");   //yahan bhi prop use kiya to change state
   };
 
   const handleOnChange = (event) => {
@@ -37,18 +49,29 @@ export default function TextForm(props) {
               onChange={handleOnChange}
               id="myBox"
               rows="8"
-              style={{background: props.mode ==='dark' ? 'grey' : 'white', color: props.mode ==='dark' ? 'white' : 'black'}} //here color is color of words we will write and bg is color of box
+              style={{background: props.mode ==='dark' ? '#181318' : 'white', color: props.mode ==='dark' ? 'white' : 'black'}} //here color is color of words we will write and bg is color of box
             ></textarea> /*kuch bhi change krne par function call ho jayega handleonchange wala*/
           }
         </div>
         {
-          <button className="btn btn-primary mx-2" onClick={handleUpClick}>
+          <button className="btn btn-primary mx-2 my-2" onClick={handleUpClick} disabled={text.length===0}>
             Convert to Upper Case
           </button> /*onclick function call ho jayega jaise button pe click karenge*/
         }
         {
-          <button className="btn btn-primary mx-2" onClick={handleloClick}>
+          <button className="btn btn-primary mx-2 my-2" onClick={handleloClick} disabled={text.length===0}>
             Convert to Lower Case
+          </button> /*onclick function call ho jayega jaise button pe click karenge*/
+        }
+
+        {
+          <button className="btn btn-primary mx-2 my-2" onClick={handleClear} disabled={text.length===0}>
+            Clear Text
+          </button> /*onclick function call ho jayega jaise button pe click karenge*/
+        }
+        {
+          <button className="btn btn-primary mx-2 my-2" onClick={handleCopy} disabled={text.length===0}>
+            Copy Text
           </button> /*onclick function call ho jayega jaise button pe click karenge*/
         }
       </div>
@@ -58,10 +81,12 @@ export default function TextForm(props) {
         <h1>your text summary</h1>
         {
           <p>
-            {text.split(" ").length} words and {text.length} characters
-          </p> /*words aur alphabet calculate krne k liye*/
+            {/* agar element zero hai to wo nhi rahega array me */}
+            {text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words and {text.length} characters 
+          </p> /*words aur alphabet calculate krne k liye, filter ek function leta hai aur agar wo true value return krta hai tabhi wo function me rahega nhi to nhi*/
+          // /\s+/ ye space aur new line dono k words ko count karega aur ye javascript ka concept hai
         }
-        <p>{0.008 * text.split(" ").length} Minutes read </p>
+        <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes read </p>
         <h2>Preview</h2>
         <p>{text.length>0 ? text : "Enter Some Text in the box" }
         </p>
